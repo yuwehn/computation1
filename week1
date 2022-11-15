@@ -1,0 +1,95 @@
+#include <stdio.h>
+#include <math.h>
+void print (float real, float im){
+float tr, ti;
+tr=floor(real);
+ti=floor(im);
+real=tr;
+im=ti;
+for (int i=-10; i<=10; i++){
+    for (int j=-10; j<=10; j++){
+  if (i==-im && j==real)printf("*");
+  else if ( i==0 && j==0)printf("+");
+   else if (i==0)printf("-");
+   else if (j==0)printf("|");
+    
+   
+    else printf(".");
+    }
+    printf("\n");
+}
+}
+
+
+int main (){
+char cmd;
+float re=0.0;
+float im=0.0;
+float new_re=0.0;
+float new_im=0.0;
+float tempr=0.0;
+float tempi=0.0;
+int pow=0;
+printf("** Complex Calculator **\n");
+do{
+printf("Operation [0+-*crpq]? ");
+scanf(" %c",&cmd);
+ if (cmd == '+' || cmd == '-'|| cmd=='*'){
+        printf("Complex operand? ");
+        scanf(" %f %f",&new_re, &new_im );
+    }
+switch (cmd){
+   
+    case '+':
+        re+=new_re;
+        im+=new_im;
+        break;
+    case '-':
+        re-=new_re;
+        im-=new_im;
+        break;
+    case '0':
+        re=0.0;
+        im=0.0;
+        break;
+    case 'c':
+        im=-im; 
+        break;
+    case '*':
+        tempr=re;
+        tempi=im;
+        re= tempr*new_re-tempi*new_im;
+        im= tempr*new_im+tempi*new_re;
+        break;
+    case 'r':
+        printf("Natural operand? ");
+        scanf("%d", &pow);
+        if (pow==0){
+        re=1.0; 
+        im=0.0;
+        }
+        else {
+        tempr=re;
+        tempi=im;
+        for (int i=1; i<pow; i++){
+           float tmp_re= re*tempr-im*tempi;
+           float tmp_im=re*tempi+im*tempr;
+           re=tmp_re;
+           im=tmp_im;
+        }
+        }
+        break;
+    case 'p':
+    print(re, im);
+    break;
+    default:
+        if (cmd != 'q'){
+        printf("Invalid command '%c'\n", cmd);}
+        break;
+}
+if (im>=0.0){
+printf("Current value is %f+%fi\n", re, im);}
+else printf("Current value is %f%fi\n", re, im);
+}while (cmd!='q');
+printf("Bye!\n");
+}
