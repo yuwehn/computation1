@@ -1,0 +1,35 @@
+#include <stdio.h>
+#include <string.h>
+void printArray (char a[], int length){
+  // loop through array, print NULL and NEWLINE  
+  printf("[");
+  for (int i=0; i< length; i++){
+    if (a[i]=='\0')printf("\\0");
+    else if (a[i]=='\n')printf("\\n");
+    else printf("%c", a[i]);
+    if (i!= length-1)printf(","); 
+  }printf("]\n");
+}
+void printString (char str[]){
+  // print string untill the NULL char
+  int length= strlen(str);
+  printf("\"");
+  for (int i=0; i<length; i++){
+    printf("%c", str[i]);
+} printf("\"\n");
+  }
+int main (){
+
+char string1[12] = "hello";
+char string2[12] = "hello\n";
+char string3[12] = "hello\n\0you\n";
+char string4[12] = "0123456789AB";
+printArray(string1, 12);
+printArray(string2, 12);
+printArray(string3, 12);
+printArray(string4, 12);
+printString (string1);
+printString (string2);
+printString (string3);
+printString (string4);
+}
