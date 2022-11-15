@@ -2,6 +2,7 @@
 #include <math.h>
 void print (float real, float im){
 float tr, ti;
+// print the grid, round the numbers down
 tr=floor(real);
 ti=floor(im);
 real=tr;
