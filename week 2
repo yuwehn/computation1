@@ -1,0 +1,57 @@
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#define LENGTH 30
+void printArray (char a[], int length){
+  // loop through array, print NULL and NEWLINE  
+  printf("[");
+  for (int i=0; i< length; i++){
+    if (a[i]=='\0')printf("\\0");
+    else if (a[i]=='\n')printf("\\n");
+    else printf("%c", a[i]);
+    if (i!= length-1)printf(","); 
+  }printf("]\n");
+}
+void printString (char str[]){
+  // print string untill the NULL char
+  int length= strlen(str);
+  printf("\"");
+  for (int i=0; i<length; i++){
+    printf("%c", str[i]);
+} printf("\"\n");
+  }
+void readLine (char str[], int length){
+char c; 
+int i =0;
+  // read char from user and store it in array
+while ((c=getchar())!= '\n'){
+  str[i]=c;
+  i++;
+}
+if (i<length) str[i]='\0';
+  else str[length-1]='\0';
+}
+int main (){
+char cmd;
+char inputString[LENGTH]={'\0'};
+char currString[LENGTH]={'\0'};
+do {
+printf("Command? ");
+readLine(inputString, LENGTH);
+switch (inputString[0]){
+  case 'p':
+  printf("The current string is: ");
+  printString(currString);
+  break;
+  case 'a':
+  break;
+  default:
+  if(inputString[0]!='q')
+  printf("Unknown command %c\n", inputString[0]);
+  break;
+  
+}
+  
+}while (inputString[0]!='q');
+  printf("Bye!\n");
+}
