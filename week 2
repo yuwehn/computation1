@@ -1,57 +1,144 @@
-#include <stdio.h>
 #include <string.h>
+#include <stdio.h>
 #include <stdlib.h>
 #define LENGTH 30
 void printArray (char a[], int length){
-  // loop through array, print NULL and NEWLINE  
-  printf("[");
-  for (int i=0; i< length; i++){
-    if (a[i]=='\0')printf("\\0");
-    else if (a[i]=='\n')printf("\\n");
-    else printf("%c", a[i]);
-    if (i!= length-1)printf(","); 
-  }printf("]\n");
+    printf("[");
+    for (int i=0; i< length ; i++){
+        if (a[i]=='\0')printf("\\0");
+        else if (a[i]=='\n')printf("\\n");
+        else printf("%c", a[i]);
+        if (i!=(length-1))printf(",");
+    } printf("]\n");
 }
+    
 void printString (char str[]){
-  // print string untill the NULL char
-  int length= strlen(str);
-  printf("\"");
-  for (int i=0; i<length; i++){
-    printf("%c", str[i]);
-} printf("\"\n");
-  }
+    int length = strlen(str);
+    printf("\"");
+    for (int i=0; i<length; i++)printf("%c", str[i]);
+    printf("\"\n");
+}
+
 void readLine (char str[], int length){
-char c; 
-int i =0;
-  // read char from user and store it in array
-while ((c=getchar())!= '\n'){
-  str[i]=c;
-  i++;
+    if (strlen(str)>LENGTH) return;
+    char c;
+    int i=0;
+    while((c=getchar())!= '\n' ){
+        str[i]= c;
+        i++;
+    }
+    if (i<length)str[i]='\0';
+    else str[length-1]='\0';
 }
-if (i<length) str[i]='\0';
-  else str[length-1]='\0';
+
+int findFirstOccurrrence (char str[], char aChar){
+    for(int i=0; i<LENGTH; i++){
+        if(str[i]== aChar){
+            return i;
+        }
+    }
+    
+        return -1;
 }
+
+int readInt (char str[], int length){
+    int k=0;
+    int i=0;
+  
+        if (str[0]<'0'  || str[0]>'9'){
+            return -1;}
+        while (str[i]!= '\0'){
+            if (str[i]>='1' && str[i]<='9'){
+                
+                k= 10*k + (str[i]-'0');
+            } else return k;
+        i++;
+        } 
+        
+        return k;
+    } 
+    
+    void insertChar (char str[], char aChar, int index){
+        int i=0;
+        while(str[i]!= '\0'){
+            i++;
+        }
+        if (i<LENGTH && index<=i){
+        for (int j=i; j>=index-1; j--){
+            str[j+1]=str[j];
+        }
+        str[index]=aChar;
+        
+    }}
+       
+ void replaceChars(char str[], char fromString[], char aChar){
+     int i=0;
+     int j=0;
+        while (str[j]!= '\0'){
+            while (fromString[i]!= '\0'){
+                if (str[j]==fromString[i]){
+                    str[j]=aChar;
+                  
+                }  i++;
+            }
+        i=0;
+        j++;
+        }
+    }
+        
+    
+
+
 int main (){
-char cmd;
-char inputString[LENGTH]={'\0'};
-char currString[LENGTH]={'\0'};
+char inputString [LENGTH]={'\0'};
+char currString [LENGTH]={'\0'};
+char aChar [LENGTH]={'\0'}; 
+char fromString[LENGTH]={'\0'};
+char letter; 
+int index;
+    
 do {
 printf("Command? ");
 readLine(inputString, LENGTH);
 switch (inputString[0]){
-  case 'p':
-  printf("The current string is: ");
-  printString(currString);
-  break;
-  case 'a':
-  break;
-  default:
-  if(inputString[0]!='q')
-  printf("Unknown command %c\n", inputString[0]);
-  break;
-  
+    
+    case 'p':
+        printf("The current string is: ");
+        printString(currString);
+        break;
+    case 'a':
+        printf("The current array is: ");
+        printArray(currString,LENGTH);
+        break;
+    case 's':
+        printf("Please enter a string? ");
+        readLine(currString, LENGTH);
+        break;
+    case 'o':
+        printf("Find first occurrence of which character? ");
+        readLine(aChar,LENGTH);
+        int Place=findFirstOccurrrence(currString, aChar[0]);
+        printf("The first occurrence of '%c' is at index %d\n", aChar[0], Place);
+        break;
+    case 'i':
+        printf("Insert which character? ");
+        scanf(" %c", &letter);
+        printf("At what index? ");
+        scanf("%d", &index);
+        insertChar(currString, letter, index);
+        break;
+    case 'r':
+        printf("Replace which characters? ");
+        readLine(fromString, LENGTH);
+        printf("With which character? ");
+        scanf("%c", &letter);
+        replaceChars(currString, fromString, letter);
+        break;
+    default:
+        if (inputString[0]!= 'q' && inputString[0]!= 'i') printf("Unknown command '%c'\n", inputString[0]);
+        break;
 }
-  
-}while (inputString[0]!='q');
-  printf("Bye!\n");
+    
+}while(inputString[0]!= 'q');
+printf("Bye!\n");
 }
